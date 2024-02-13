@@ -102,7 +102,6 @@ sudo systemctl enable containerd
 ### Check if installed : 
 sudo ls /var/run/containerd/containerd.sock
 
-
 # On the Kube master node, initialize the cluster:
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --kubernetes-version 1.24.0
 
@@ -115,10 +114,26 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 
 
+################## Initialize Kubeadm 
+################## On Master Node To Setup 
+################## Control Plane , @@@@@@@@@@@@@@@@@@@ Private Ip mode
 
 
+# Get hostname 
+# Set pod CIDR
+# Get private IP address 
 
 
+NODENAME=$(hostname -s)
+POD_CIDR="192.168.0.0/16"
+IPADDR=$(ip addr show | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}' | cut -d/ -f1 | head -n 1)
+#IPADDR=$(curl ifconfig.me && echo "") # For Public IP
+
+
+# Print variables
+echo "IPADDR=$IPADDR"
+echo "NODENAME=$NODENAME"
+echo "POD_CIDR=$POD_CIDR"
 
 
 
