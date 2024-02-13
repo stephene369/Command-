@@ -195,3 +195,16 @@ curl https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/cu
 kubectl create -f custom-resources.yaml
 
 print_green "Step completed: Install Calico Network Plugin for Pod Networking"
+
+## Setup Kubernetes Metrics Server
+
+# install the service : 
+kubectl apply -f https://raw.githubusercontent.com/techiescamp/kubeadm-scripts/main/manifests/metrics-server.yaml
+
+# node and pod metrics 
+kubectl top nodes
+
+# pod CPU and memory metrics 
+kubectl top pod -n kube-system
+
+
