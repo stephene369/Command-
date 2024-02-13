@@ -27,7 +27,6 @@ confirm_step() {
 ##########
 
 # Start of the step: Enable iptables Bridged Traffic on all nodes
-confirm_step "Start of the step: Enable iptables Bridged Traffic on all nodes"
 print_blue "Start of the step: Enable iptables Bridged Traffic on all nodes"
 
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
@@ -50,20 +49,14 @@ sudo sysctl --system
 
 print_green "Step completed: Enable iptables Bridged Traffic on all nodes"
 
-# Prompt for confirmation before executing the next major step
-confirm_step "Step completed: Enable iptables Bridged Traffic on all nodes"
 
 # Start of the step: Disable swap on all the Nodes
-confirm_step "Start of the step: Disable swap on all the Nodes"
 print_blue "Start of the step: Disable swap on all the Nodes"
 
 sudo swapoff -a
 (crontab -l 2>/dev/null; echo "@reboot /sbin/swapoff -a") | crontab - || true
 
 print_green "Step completed: Disable swap on all the Nodes"
-
-# Prompt for confirmation before executing the next major step
-confirm_step "Step completed: Disable swap on all the Nodes"
 
 # Start of the step: Install Docker
 confirm_step "Start of the step: Install Docker"
@@ -86,9 +79,6 @@ sudo systemctl start docker
 sudo systemctl enable docker
 
 print_green "Step completed: Install Docker"
-
-# Prompt for confirmation before executing the next major step
-confirm_step "Step completed: Install Docker"
 
 # Start of the step: Install Kubernetes
 confirm_step "Start of the step: Install Kubernetes"
