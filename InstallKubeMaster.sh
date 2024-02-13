@@ -128,8 +128,6 @@ print_green "Step completed: Install Kubernetes"
 
 
 
-
-
 # Start of the step: Initialize the Kubernetes cluster
 confirm_step "Start of the step: Initialize the Kubernetes cluster"
 print_blue "Start of the step: Initialize the Kubernetes cluster"
@@ -145,17 +143,13 @@ sudo systemctl enable containerd
 # Check if installed
 sudo ls /var/run/containerd/containerd.sock
 
-# On the Kubernetes master node, initialize the cluster
-sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --kubernetes-version 1.24.0
 
-# Set kubectl access
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-print_green "Step completed: Initialize the Kubernetes cluster"
+
 
 # Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode
+
+confirm_step "Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
 print_blue "Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
 
 # Get hostname
@@ -169,8 +163,6 @@ IPADDR=$(ip addr show | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}' | cu
 echo "IPADDR=$IPADDR"
 echo "NODENAME=$NODENAME"
 echo "POD_CIDR=$POD_CIDR"
-
-
 
 ## Setup
 sudo kubeadm init --control-plane-endpoint=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=$POD_CIDR --node-name $NODENAME --ignore-preflight-errors Swap
@@ -192,8 +184,6 @@ kubectl get --raw='/readyz?verbose'
 kubectl cluster-info 
 
 print_green "Step completed: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
-
-
 
 
 
