@@ -88,42 +88,4 @@ EOF
 
 
 
-######################################## BOOSTRAP THE CLUSTER 
-
-
-# install containerd
-sudo apt-get update 
-sudo apt-get install -y containerd
-
-## start containerd 
-sudo systemctl start containerd
-sudo systemctl enable containerd
-
-### Check if installed : 
-sudo ls /var/run/containerd/containerd.sock
-
-
-# On the Kube master node, initialize the cluster:
-sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --kubernetes-version 1.24.0
-
-# Set kubectl access:
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
