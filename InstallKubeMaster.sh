@@ -21,8 +21,11 @@ confirm_step() {
   esac
 }
 
+
+
+
+
 # Start of the step: Enable iptables Bridged Traffic on all nodes
-confirm_step "Start of the step: Enable iptables Bridged Traffic on all nodes"
 print_blue "Start of the step: Enable iptables Bridged Traffic on all nodes"
 
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
@@ -45,11 +48,7 @@ sudo sysctl --system
 
 print_green "Step completed: Enable iptables Bridged Traffic on all nodes"
 
-# Prompt for confirmation before executing the next major step
-confirm_step "Step completed: Enable iptables Bridged Traffic on all nodes"
-
 # Start of the step: Disable swap on all the Nodes
-confirm_step "Start of the step: Disable swap on all the Nodes"
 print_blue "Start of the step: Disable swap on all the Nodes"
 
 sudo swapoff -a
@@ -57,8 +56,11 @@ sudo swapoff -a
 
 print_green "Step completed: Disable swap on all the Nodes"
 
-# Prompt for confirmation before executing the next major step
-confirm_step "Step completed: Disable swap on all the Nodes"
+
+
+
+
+
 
 # Start of the step: Install Docker
 confirm_step "Start of the step: Install Docker"
@@ -82,8 +84,10 @@ sudo systemctl enable docker
 
 print_green "Step completed: Install Docker"
 
-# Prompt for confirmation before executing the next major step
-confirm_step "Step completed: Install Docker"
+
+
+
+
 
 # Start of the step: Install Kubernetes
 confirm_step "Start of the step: Install Kubernetes"
@@ -119,8 +123,12 @@ EOF
 
 print_green "Step completed: Install Kubernetes"
 
-# Prompt for confirmation before executing the next major step
-confirm_step "Step completed: Install Kubernetes"
+
+
+
+
+
+
 
 # Start of the step: Initialize the Kubernetes cluster
 confirm_step "Start of the step: Initialize the Kubernetes cluster"
@@ -138,8 +146,6 @@ sudo systemctl enable containerd
 sudo ls /var/run/containerd/containerd.sock
 
 # On the Kubernetes master node, initialize the cluster
-confirm_step "Would you like to continue with Kubernetes cluster initialization? (yes/no)"
-print_blue "Would you like to continue with Kubernetes cluster initialization? (yes/no)"
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --kubernetes-version 1.24.0
 
 # Set kubectl access
@@ -150,7 +156,6 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 print_green "Step completed: Initialize the Kubernetes cluster"
 
 # Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode
-confirm_step "Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
 print_blue "Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
 
 # Get hostname
@@ -165,8 +170,11 @@ echo "IPADDR=$IPADDR"
 echo "NODENAME=$NODENAME"
 echo "POD_CIDR=$POD_CIDR"
 
+
+
 ## Setup
 sudo kubeadm init --control-plane-endpoint=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=$POD_CIDR --node-name $NODENAME --ignore-preflight-errors Swap
+
 
 ### To start using Cluster
 mkdir -p $HOME/.kube
@@ -184,6 +192,13 @@ kubectl get --raw='/readyz?verbose'
 kubectl cluster-info 
 
 print_green "Step completed: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
+
+
+
+
+
+
+
 
 # Start of the step: Install Calico Network Plugin for Pod Networking
 confirm_step "Start of the step: Install Calico Network Plugin for Pod Networking"
