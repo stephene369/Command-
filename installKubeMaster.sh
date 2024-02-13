@@ -123,17 +123,44 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 # Set pod CIDR
 # Get private IP address 
 
-
 NODENAME=$(hostname -s)
 POD_CIDR="192.168.0.0/16"
 IPADDR=$(ip addr show | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}' | cut -d/ -f1 | head -n 1)
 #IPADDR=$(curl ifconfig.me && echo "") # For Public IP
 
-
 # Print variables
 echo "IPADDR=$IPADDR"
 echo "NODENAME=$NODENAME"
 echo "POD_CIDR=$POD_CIDR"
+
+## Setup 
+sudo kubeadm init --control-plane-endpoint=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=$POD_CIDR --node-name $NODENAME --ignore-preflight-errors Swap
+
+### To start using Cluster 
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+## get Kube config 
+echo "Kube configuration : "
+kubectl get po -n kube-system
+
+# verify all the cluster component health statuses
+kubectl get --raw='/readyz?verbose'
+
+# get cluster infos :
+kubectl cluster-info 
+
+
+
+######################################## Install Calico Network Plugin for Pod Networking
+
+## install CALICO network plugin 
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/tigera-operator.yaml
+
+curl https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/custom-resources.yaml -O
+
+kubectl create -f custom-resources.yaml
 
 
 
