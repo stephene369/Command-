@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 # Function to print a message in blue
 print_blue() {
@@ -143,6 +143,12 @@ sudo systemctl enable containerd
 # Check if installed
 sudo ls /var/run/containerd/containerd.sock
 
+
+# Start and enable Kubectl 
+sudo systemctl daemon-reload
+sudo systemctl enable kubelet
+sudo systemctl restart kubelet
+sudo systemctl status kubelet
 
 
 
