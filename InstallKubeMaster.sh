@@ -166,8 +166,8 @@ echo "POD_CIDR=$POD_CIDR"
 confirm_step "Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
 print_blue "Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
 
-sudo kubeadm init --control-plane-endpoint=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=$POD_CIDR --node-name $NODENAME --ignore-preflight-errors Swap
-
+# sudo kubeadm init --control-plane-endpoint=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=$POD_CIDR --node-name $NODENAME --ignore-preflight-errors Swap
+sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --kubernetes-version 1.24.0
 
 
 
