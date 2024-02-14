@@ -149,9 +149,6 @@ sudo ls /var/run/containerd/containerd.sock
 
 # Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode
 
-confirm_step "Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
-print_blue "Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
-
 # Get hostname
 # Set pod CIDR
 # Get private IP address
@@ -165,8 +162,13 @@ echo "IPADDR=$IPADDR"
 echo "NODENAME=$NODENAME"
 echo "POD_CIDR=$POD_CIDR"
 
-## Setup
+
+confirm_step "Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
+print_blue "Start of the step: Initialize Kubeadm on the master node to set up the control plane, Private IP mode"
+
 sudo kubeadm init --control-plane-endpoint=$IPADDR  --apiserver-cert-extra-sans=$IPADDR  --pod-network-cidr=$POD_CIDR --node-name $NODENAME --ignore-preflight-errors Swap
+
+
 
 
 ### To start using Cluster
