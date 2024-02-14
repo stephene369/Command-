@@ -58,8 +58,9 @@ sudo swapoff -a
 
 print_green "Step completed: Disable swap on all the Nodes"
 
+
+
 # Start of the step: Install Docker
-confirm_step "Start of the step: Install Docker"
 print_blue "Start of the step: Install Docker"
 
 # Add Docker repository to Apt sources
@@ -80,8 +81,10 @@ sudo systemctl enable docker
 
 print_green "Step completed: Install Docker"
 
+
+
+
 # Start of the step: Install Kubernetes
-confirm_step "Start of the step: Install Kubernetes"
 print_blue "Start of the step: Install Kubernetes"
 
 # Install dependency packages
@@ -114,7 +117,3 @@ KUBELET_EXTRA_ARGS=--node-ip=$local_ip
 EOF
 
 print_green "Step completed: Install Kubernetes"
-
-# Prompt for confirmation before executing the next major step
-confirm_step "Step completed: Install Kubernetes"
-
