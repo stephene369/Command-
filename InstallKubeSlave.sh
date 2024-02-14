@@ -117,3 +117,27 @@ KUBELET_EXTRA_ARGS=--node-ip=$local_ip
 EOF
 
 print_green "Step completed: Install Kubernetes"
+
+
+
+
+
+# Start of the step: Initialize the Kubernetes cluster
+print_blue "Start of the step: Initialize the Kubernetes cluster"
+
+# Install containerd
+sudo apt-get update 
+sudo apt-get install -y containerd
+
+# Start containerd
+sudo systemctl start containerd
+sudo systemctl enable containerd
+
+# Check if installed
+sudo ls /var/run/containerd/containerd.sock
+
+
+
+
+
+
