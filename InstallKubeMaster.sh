@@ -158,6 +158,7 @@ print_blue "Start of the step: Initialize Kubeadm on the master node to set up t
 NODENAME=$(hostname -s)
 POD_CIDR="192.168.0.0/16"
 IPADDR=$(ip addr show | grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}' | cut -d/ -f1 | head -n 1)
+#IPADDR=$(curl ifconfig.me && echo "") # if public
 
 # Print variables
 echo "IPADDR=$IPADDR"
