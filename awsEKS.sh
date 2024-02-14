@@ -31,3 +31,16 @@ curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_ch
 tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 sudo mv /tmp/eksctl /usr/local/bin
 
+
+################################### Install Docker ans run eksctl in docker 
+sudo apt  install docker.io
+sudo systemctl enable docker 
+sudo systemctl start docker
+
+## run in docker 
+docker run --rm -it public.ecr.aws/eksctl/eksctl version
+
+
+
+
+
