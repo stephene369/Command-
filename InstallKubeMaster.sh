@@ -221,4 +221,5 @@ kubectl top nodes
 # pod CPU and memory metrics 
 kubectl top pod -n kube-system
 
-
+## Nodes list
+kubectl get nodes -o wide
