@@ -158,6 +158,21 @@ kubectl apply -f aws-auth.yaml
 
 You should now have access to view all objects in the cluster
 
+**Create a simple POD**
+```python
+cat << EOF | kubectl create -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+  image: nginx
+EOF
+
+```
+
 ## Delete the service and cluster
 
 kubectl delete svc my-service
