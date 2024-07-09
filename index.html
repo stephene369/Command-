@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Directory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(180deg , #ffffff , #b0beff70);
+            position: relative;
+
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: transparent;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 10px;
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <h1>Media Directory</h1>
+    <ul id="file-list"></ul>
+    <script>
+        fetch('/files')
+            .then(response => response.json())
+            .then(data => {
+                const fileList = document.getElementById('file-list');
+                data.files.forEach(file => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = file.url;
+                    a.textContent = file.name;
+                    li.appendChild(a);
+                    fileList.appendChild(li);
+                });
+            });
+    </script>
+        <!-- Pied de page -->
+        <div class="footer">
+            <p>Stephene WANTCHEKON</p>
+            <p>stephenew36@gmail.com</p>
+        </div>
+</body>
+</html>
